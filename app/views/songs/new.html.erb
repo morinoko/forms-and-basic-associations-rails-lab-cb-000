@@ -3,9 +3,26 @@
 <%= form_for @song  do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
-  <br />
+  <br>
+
+  <%= f.label :artist_name %>
+  <%= f.text_field :artist_name, list: "artist_choices" %>
+  <datalist id="artist_choices">
+    <% Artist.all.each do |artist| %>
+      <option value="<%= artist.name %>">
+    <% end %>
+  </datalist>
+  <br>
+
+  <%= f.label :genre_name %>
+  <%= f.collection_select :genre_name, Genre.all, :name, :name %>
+  <br>
+
+  <%= f.label :note_contents, "Notes" %><br>
+  <% 3.times do |index| %>
+    <%= f.text_field :note_contents, name: 'song[note_contents][]', id: "song_notes_#{index+1}" %><br>
+  <% end %>
+  <br>
 
   <%= f.submit %>
 <% end %>
-
-
