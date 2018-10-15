@@ -32,10 +32,8 @@ class Song < ActiveRecord::Base
   end
 
   def note_contents
-    if self.notes
-      self.notes.collect do |note|
-        note.content
-      end
+    self.notes.collect do |note|
+      note.content
     end
   end
 end
