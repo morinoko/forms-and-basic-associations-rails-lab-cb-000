@@ -22,17 +22,16 @@ class Song < ActiveRecord::Base
   def note_contents=(note_contents)
     note_contents.each do |note_content|
       unless note_content.empty?
-        note = Note.new(content: note_content)
-        self.notes << note
+        self.notes.build(content: note_content)
+
+        # alternative:
+        # note = Note.new(content: note_content)
+        # self.notes << note
       end
     end
   end
 
   def note_contents
-    if self.notes
-      self.notes.collect do |note|
-        note.content
-      end
-    end
+    self.notes.collect { |note| note.content }
   end
 end
